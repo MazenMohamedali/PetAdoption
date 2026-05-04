@@ -1,22 +1,21 @@
 /**
- * Thin fetch wrapper for the REST API.
+ * Thin fetch wrapper for the backend REST API.
  *
- * Backend integration:
- *   - Set VITE_API_BASE_URL in your .env (e.g. http://localhost:4000/api)
- *   - All requests automatically include `Authorization: Bearer <jwt>`
- *     when a token is stored via auth.ts.
- *   - 401 responses clear the stored token so the UI can redirect to login.
+ *  - Base URL: VITE_API_BASE_URL (defaults to http://localhost:8000/api)
+ *  - Adds `Authorization: Bearer <jwt>` automatically when a token is stored.
+ *  - 401 responses clear the stored token so the UI can redirect to login.
  */
 
 import { getToken, clearToken } from "./auth";
 import type { ApiError } from "./types";
 
 export const API_BASE_URL: string =
-  (import.meta.env.VITE_API_BASE_URL as string | undefined) ?? "/api";
+  (import.meta.env.VITE_API_BASE_URL as string | undefined) ??
+  "http://localhost:8000/api";
 
 export interface RequestOptions extends Omit<RequestInit, "body"> {
   body?: unknown;
-  /** Skip Authorization header even if a token exists (e.g. login). */
+  /** Skip Authorization header even if a token exists (e.g. login/register). */
   anonymous?: boolean;
 }
 
@@ -44,17 +43,19 @@ export async function apiFetch<T>(path: string, options: RequestOptions = {}): P
 
   if (!res.ok) {
     let message = res.statusText;
+    let code: string | undefined;
     try {
-      const data = (await res.json()) as { message?: string; code?: string };
-      if (data.message) message = data.message;
-      const err: ApiError = { message, status: res.status, code: data.code };
-      throw err;
+      const data = (await res.json()) as { message?: string; error?: string; code?: string };
+      message = data.message ?? data.error ?? message;
+      code = data.code;
     } catch {
-      const err: ApiError = { message, status: res.status };
-      throw err;
+      /* non-JSON error body */
     }
+    const err: ApiError = { message, status: res.status, code };
+    throw err;
   }
 
   if (res.status === 204) return undefined as T;
-  return (await res.json()) as T;
+  const text = await res.text();
+  return (text ? JSON.parse(text) : undefined) as T;
 }
