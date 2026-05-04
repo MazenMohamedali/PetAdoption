@@ -33,7 +33,7 @@ export function TabsHeader({
               key={key}
               onClick={() => onChange(key)}
               className={cn(
-                "flex items-center justify-center gap-2 rounded-lg px-3 py-3 text-sm font-medium transition-colors",
+                "flex items-center justify-center gap-2 rounded-lg px-3 py-3 text-sm font-medium transition-colors cursor-pointer",
                 isActive
                   ? "bg-primary text-primary-foreground shadow-sm"
                   : "bg-secondary text-secondary-foreground hover:bg-accent",

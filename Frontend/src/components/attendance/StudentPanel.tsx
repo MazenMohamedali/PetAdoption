@@ -1,24 +1,24 @@
 import { useEffect, useRef, useState } from "react";
 import { UserRound, Camera, Check, XCircle, X } from "lucide-react";
 import type { ClassSession } from "./TeacherPanel";
-import type { AttendanceRecordDTO } from "@/lib/api";
+import type { AttendanceDTO } from "@/lib/api";
 
-/** UI-friendly alias. Backend shape lives in @/lib/api/types. */
+/** UI-friendly alias. Backend shape (AttendanceDTO) lives in @/lib/api/types. */
 export type AttendanceRecord = {
   id: string;
   studentName: string;
-  classId: string;
+  classId: string;     // course name (backend doesn't return id on scan response)
   className: string;
   timestamp: number;
 };
 
-export function fromAttendanceDTO(dto: AttendanceRecordDTO): AttendanceRecord {
+export function fromAttendanceDTO(dto: AttendanceDTO): AttendanceRecord {
   return {
-    id: dto.id,
-    studentName: dto.student_name,
-    classId: dto.session_id,
-    className: dto.session_name,
-    timestamp: new Date(dto.scanned_at).getTime(),
+    id: String(dto.id),
+    studentName: dto.studentName,
+    classId: dto.courseName,
+    className: dto.courseName,
+    timestamp: new Date(dto.scannedAt).getTime(),
   };
 }
 
@@ -118,7 +118,7 @@ export function StudentPanel({
       <button
         onClick={handleScan}
         disabled={!canScan}
-        className="mt-5 w-full inline-flex items-center justify-center gap-2 rounded-lg bg-muted px-4 py-3 text-sm font-semibold text-muted-foreground enabled:bg-primary enabled:text-primary-foreground enabled:hover:bg-primary/90 transition-colors disabled:cursor-not-allowed"
+        className="mt-5 w-full inline-flex items-center justify-center gap-2 rounded-lg bg-muted px-4 py-3 text-sm font-semibold text-muted-foreground enabled:bg-primary enabled:text-primary-foreground enabled:hover:bg-primary/90 enabled:cursor-pointer transition-colors disabled:cursor-not-allowed"
       >
         {success ? <Check className="h-4 w-4" /> : <Camera className="h-4 w-4" />}
         {success ? "Attendance Recorded" : submitting ? "Scanning…" : "Scan QR Code"}
@@ -136,7 +136,7 @@ export function StudentPanel({
           <video ref={videoRef} className="w-full h-64 object-cover" playsInline muted />
           <button
             onClick={stopCamera}
-            className="absolute top-2 right-2 rounded-full bg-black/60 p-1.5 text-white hover:bg-black/80"
+            className="absolute top-2 right-2 rounded-full bg-black/60 p-1.5 text-white hover:bg-black/80 cursor-pointer"
             aria-label="Close camera"
           >
             <X className="h-4 w-4" />
@@ -144,7 +144,7 @@ export function StudentPanel({
           <button
             onClick={handleConfirmScan}
             disabled={submitting}
-            className="absolute bottom-3 left-1/2 -translate-x-1/2 rounded-lg bg-primary px-4 py-2 text-xs font-semibold text-primary-foreground hover:bg-primary/90 disabled:opacity-60"
+            className="absolute bottom-3 left-1/2 -translate-x-1/2 rounded-lg bg-primary px-4 py-2 text-xs font-semibold text-primary-foreground hover:bg-primary/90 disabled:opacity-60 cursor-pointer disabled:cursor-not-allowed"
           >
             {submitting ? "Submitting…" : "Confirm Scan"}
           </button>

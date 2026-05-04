@@ -1,24 +1,24 @@
 import { useState } from "react";
 import { Plus, X, Calendar, Copy, Check } from "lucide-react";
 import { QRCodeSVG } from "qrcode.react";
-import type { ClassSessionDTO } from "@/lib/api";
+import type { CourseDTO } from "@/lib/api";
 
-/** UI-friendly alias. Backend shape lives in @/lib/api/types. */
+/** UI-friendly alias. Backend shape (CourseDTO) lives in @/lib/api/types. */
 export type ClassSession = {
-  id: string;
+  id: string;          // stringified CourseDTO.id (numeric on the backend)
   name: string;
   createdAt: number;
-  token: string;
-  qrPayload: string;
+  token: string;       // qrCode UUID — also encoded into the QR
+  qrPayload: string;   // value placed inside the QR (= qrCode UUID)
 };
 
-export function fromDTO(dto: ClassSessionDTO): ClassSession {
+export function fromDTO(dto: CourseDTO): ClassSession {
   return {
-    id: dto.id,
+    id: String(dto.id),
     name: dto.name,
-    createdAt: new Date(dto.started_at).getTime(),
-    token: dto.token,
-    qrPayload: dto.qr_payload,
+    createdAt: new Date(dto.createdAt).getTime(),
+    token: dto.qrCode,
+    qrPayload: dto.qrCode,
   };
 }
 
@@ -84,7 +84,7 @@ export function TeacherPanel({
           </h2>
           <button
             onClick={() => setShowForm((s) => !s)}
-            className="inline-flex items-center gap-2 rounded-lg bg-primary px-4 py-2.5 text-sm font-semibold text-primary-foreground hover:bg-primary/90 transition-colors shadow-sm"
+            className="inline-flex items-center gap-2 rounded-lg bg-primary px-4 py-2.5 text-sm font-semibold text-primary-foreground hover:bg-primary/90 transition-colors shadow-sm cursor-pointer"
           >
             {showForm ? <X className="h-4 w-4" /> : <Plus className="h-4 w-4" />}
             {showForm ? "Cancel" : "New Class"}
@@ -106,7 +106,7 @@ export function TeacherPanel({
               <button
                 onClick={handleCreate}
                 disabled={submitting}
-                className="rounded-lg bg-primary px-4 py-2 text-sm font-semibold text-primary-foreground hover:bg-primary/90 disabled:opacity-60"
+                className="rounded-lg bg-primary px-4 py-2 text-sm font-semibold text-primary-foreground hover:bg-primary/90 disabled:opacity-60 cursor-pointer disabled:cursor-not-allowed"
               >
                 {submitting ? "Creating…" : "Create"}
               </button>
@@ -147,7 +147,7 @@ export function TeacherPanel({
                       await onDelete(c.id);
                       if (active?.id === c.id) setActive(null);
                     }}
-                    className="text-destructive hover:text-destructive/80 p-1 rounded-md transition-colors"
+                    className="text-destructive hover:text-destructive/80 p-1 rounded-md transition-colors cursor-pointer"
                     aria-label="Remove class"
                   >
                     <X className="h-5 w-5" />
@@ -184,7 +184,7 @@ export function TeacherPanel({
             </p>
             <button
               onClick={copy}
-              className="mt-3 inline-flex items-center gap-2 text-xs font-medium text-primary hover:underline"
+              className="mt-3 inline-flex items-center gap-2 text-xs font-medium text-primary hover:underline cursor-pointer"
             >
               {copied ? <Check className="h-3.5 w-3.5" /> : <Copy className="h-3.5 w-3.5" />}
               {copied ? "Copied" : "Copy join link"}
