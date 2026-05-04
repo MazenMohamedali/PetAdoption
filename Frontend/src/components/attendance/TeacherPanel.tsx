@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Plus, X, Calendar, Copy, Check } from "lucide-react";
+import { Plus, X, Calendar, Copy, Check, Users } from "lucide-react";
 import { QRCodeSVG } from "qrcode.react";
 import type { CourseDTO } from "@/lib/api";
 
@@ -7,18 +7,22 @@ import type { CourseDTO } from "@/lib/api";
 export type ClassSession = {
   id: string;          // stringified CourseDTO.id (numeric on the backend)
   name: string;
+  description: string;
   createdAt: number;
   token: string;       // qrCode UUID — also encoded into the QR
   qrPayload: string;   // value placed inside the QR (= qrCode UUID)
+  attendanceCount: number;
 };
 
 export function fromDTO(dto: CourseDTO): ClassSession {
   return {
     id: String(dto.id),
     name: dto.name,
+    description: dto.description || "",
     createdAt: new Date(dto.createdAt).getTime(),
     token: dto.qrCode,
     qrPayload: dto.qrCode,
+    attendanceCount: dto.attendanceCount || 0,
   };
 }
 
@@ -139,6 +143,9 @@ export function TeacherPanel({
                     <p className="mt-1 flex items-center gap-1.5 text-xs text-muted-foreground">
                       <Calendar className="h-3.5 w-3.5" />
                       {formatDate(c.createdAt)}
+                      <span className="mx-1">•</span>
+                      <Users className="h-3.5 w-3.5 ml-1" />
+                      {c.attendanceCount} {c.attendanceCount === 1 ? "student" : "students"}
                     </p>
                   </div>
                   <button

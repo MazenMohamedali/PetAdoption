@@ -12,10 +12,12 @@ export function RecordsPanel({
 }) {
   const [filter, setFilter] = useState<string>("all");
 
-  const filtered = useMemo(
-    () => (filter === "all" ? records : records.filter((r) => r.classId === filter)),
-    [records, filter],
-  );
+  const filtered = useMemo(() => {
+    if (filter === "all") return records;
+    const cls = classes.find(c => c.id === filter);
+    if (!cls) return [];
+    return records.filter((r) => r.className === cls.name);
+  }, [records, filter, classes]);
 
   const uniqueStudents = new Set(filtered.map((r) => r.studentName.toLowerCase())).size;
 
@@ -36,7 +38,7 @@ export function RecordsPanel({
 
   const countsByClass = useMemo(() => {
     const map = new Map<string, number>();
-    for (const r of records) map.set(r.classId, (map.get(r.classId) ?? 0) + 1);
+    for (const r of records) map.set(r.className, (map.get(r.className) ?? 0) + 1);
     return map;
   }, [records]);
 
@@ -101,7 +103,7 @@ export function RecordsPanel({
             </thead>
             <tbody className="divide-y divide-border">
               {filtered.map((r) => {
-                const cls = classes.find((c) => c.id === r.classId);
+                const cls = classes.find((c) => c.name === r.className);
                 const classDate = cls
                   ? new Date(cls.createdAt).toLocaleDateString("en-US", {
                       month: "short",
@@ -145,7 +147,7 @@ export function RecordsPanel({
               </div>
               <div className="flex items-center gap-1.5 text-sm font-medium text-primary">
                 <Users className="h-4 w-4" />
-                {countsByClass.get(c.id) ?? 0}
+                {countsByClass.get(c.name) ?? c.attendanceCount ?? 0}
               </div>
             </li>
           ))}

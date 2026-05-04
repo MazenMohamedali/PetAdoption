@@ -169,7 +169,7 @@ function StudentView() {
     };
   }, []);
 
-  const scanQr = async (qrPayload: string, _studentName: string): Promise<void> => {
+  const scanQr = async (qrPayload: string): Promise<void> => {
     const record = await api.scanQr({ qrCode: qrPayload });
     setRecords((r) => [fromAttendanceDTO(record), ...r]);
   };
