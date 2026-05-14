@@ -23,13 +23,10 @@ jobs:
       - name: Build Angular app
         run: npm run build -- --configuration production
 
-      - name: Show dist folder contents
-        run: ls -la dist/ && ls -la dist/*/
-
       - name: Deploy to Netlify
         uses: nwtgck/actions-netlify@v3
         with:
-          publish-dir: './dist/virtual_recipe_cookbook/browser'
+          publish-dir: './dist/Virtual_Recipe_Cookbook/browser'
           production-branch: main
           github-token: ${{ secrets.GITHUB_TOKEN }}
         env:
