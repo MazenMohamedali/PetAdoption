@@ -1,0 +1,42 @@
+.manage-page {
+  background: white;
+  min-height: 100vh;
+  padding: 40px;
+}
+
+.manage-title {
+  font-size: 40px;
+  font-weight: 700;
+  margin-bottom: 40px;
+  color: #020b35;
+}
+
+.users-list {
+  margin-top: 20px;
+}
+
+.user-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 250px;
+  margin-bottom: 20px;
+}
+
+.user-avatar {
+  width: 55px;
+  height: 55px;
+  border-radius: 50%;
+}
+
+.ban-btn,
+.unban-btn {
+  border: 1px solid #000;
+  background: transparent;
+  padding: 4px 12px;
+  cursor: pointer;
+}
+
+.unban-btn {
+  background: #ddd;
+}

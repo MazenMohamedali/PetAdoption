@@ -1,0 +1,193 @@
+.landing-page {
+  --bg-void: #0d0d1f;
+  --bg-dark: #12122e;
+  --purple: #6e1eff;
+  --cyan: #00f2ff;
+  --pink: #ff0066;
+  --pink-hover: #ff4088;
+  color: white;
+}
+
+/* hero sec */
+.landing-page .hero-section {
+  min-height: 100vh;
+  background: 
+    radial-gradient(circle at 20% 80%, rgba(110, 30, 255, 0.35), transparent 50%),
+    radial-gradient(circle at 80% 20%, rgba(0, 242, 255, 0.25), transparent 50%),
+    linear-gradient(135deg, var(--bg-void) 0%, var(--bg-dark) 100%);
+  position: relative;
+  overflow: hidden;
+  color: white;
+}
+
+.landing-page .hero-section::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 2px,
+    rgba(110, 30, 255, 0.03) 2px,
+    rgba(110, 30, 255, 0.03) 4px
+  );
+  pointer-events: none;
+  animation: scanlines 12s linear infinite;
+}
+
+@keyframes scanlines {
+  0% { transform: translateY(0); }
+  100% { transform: translateY(4px); }
+}
+
+.landing-page .text-gradient {
+  background: linear-gradient(135deg, var(--purple), var(--cyan));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.landing-page .text-pink { color: var(--pink) !important; }
+.landing-page .text-cyan { color: var(--cyan) !important; }
+
+/* btns */
+.landing-page .btn-glow {
+  background: linear-gradient(135deg, var(--pink), var(--pink-hover));
+  border: none;
+  color: white;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 0 20px rgba(255, 0, 102, 0.5);
+  transition: all 0.4s;
+}
+
+.landing-page .btn-glow::before {
+  content: '';
+  position: absolute;
+  top: 0; left: -100%;
+  width: 100%; height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+  transition: 0.7s;
+}
+
+.landing-page .btn-glow:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 15px 35px rgba(255, 0, 102, 0.6);
+}
+
+.landing-page .btn-glow:hover::before { left: 100%; }
+
+.landing-page .btn-outline-glow {
+  border: 2px solid var(--cyan);
+  color: var(--cyan);
+  background: transparent;
+}
+
+.landing-page .btn-outline-glow:hover {
+  background: rgba(0, 242, 255, 0.1);
+  box-shadow: 0 0 20px rgba(0, 242, 255, 0.4);
+  color: white;
+}
+
+.landing-page .btn-glow-alt {
+  background: linear-gradient(135deg, var(--purple), #9d4edd);
+  box-shadow: 0 0 20px rgba(110, 30, 255, 0.5);
+}
+
+/* glass cards */
+.landing-page .glass {
+  background: rgba(18, 18, 46, 0.65);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1px solid rgba(110, 30, 255, 0.3);
+  border-radius: 1rem;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+}
+
+.landing-page .team-card {
+  padding: 1.2rem;
+  position: absolute;
+  width: 280px;
+  transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+  z-index: 10;
+}
+
+.landing-page .team-card:hover {
+  transform: translateY(-12px) scale(1.05);
+  box-shadow: 0 20px 40px rgba(110, 30, 255, 0.6);
+  border: 1px solid var(--cyan);
+}
+
+.landing-page .rank-badge {
+  position: absolute;
+  top: -10px;
+  right: 12px;
+  font-size: 10px;
+  font-weight: bold;
+  padding: 5px 12px;
+  border-radius: 20px;
+  background: linear-gradient(135deg, #9d4edd, #6e1eff);
+  color: white;
+}
+
+.landing-page .rank-badge.champion {
+  background: linear-gradient(135deg, #ff0066, #ff4088);
+}
+
+.landing-page .card-avatar, 
+.landing-page .avatar-circle {
+  width: 50px; height: 50px;
+  background: linear-gradient(135deg, var(--cyan), var(--purple));
+  border-radius: 12px;
+  box-shadow: 0 0 15px rgba(0, 242, 255, 0.5);
+}
+
+.landing-page .avatar-circle { border-radius: 50%; width: 64px; height: 64px; }
+
+.landing-page .operator-box, 
+.landing-page .operator-mini {
+  height: 80px;
+  background: linear-gradient(135deg, rgba(110, 30, 255, 0.3), rgba(0, 242, 255, 0.2));
+  border: 1px solid var(--cyan);
+  border-radius: 12px;
+  box-shadow: 0 0 15px rgba(0, 242, 255, 0.3);
+}
+
+.landing-page .operator-mini { width: 40px; height: 40px; }
+
+.landing-page .glow { box-shadow: 0 0 20px rgba(0, 242, 255, 0.6); }
+
+/* banner  */
+.landing-page .welcome-banner {
+  background: linear-gradient(135deg, var(--purple), var(--cyan));
+  padding: 4rem 0;
+  position: relative;
+  overflow: hidden;
+}
+
+.landing-page .welcome-banner::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><path d="M0,50 L25,25 L50,50 L25,75 Z" fill="rgba(255,255,255,0.05)" /></svg>') repeat;
+  background-size: 40px;
+  opacity: 0.1;
+}
+
+.landing-page .player-profile, 
+.landing-page .team-management {
+  background: var(--bg-dark);
+}
+
+.landing-page .profile-card {
+  border-radius: 1rem;
+  overflow: hidden;
+}
+
+.landing-page .profile-bg {
+  height: 300px;
+  background: linear-gradient(135deg, rgba(110, 30, 255, 0.4), rgba(0, 242, 255, 0.2)),
+              url('https://images.unsplash.com/photo-1542751371-6531b5360c36?ixlib=rb-4.0.3&auto=format&fit=crop&q=80') center/cover;
+}

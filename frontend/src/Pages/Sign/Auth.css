@@ -1,0 +1,102 @@
+/* -------- PAGE BACKGROUND -------- */
+.auth-page {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background:
+    radial-gradient(circle at 20% 80%, rgba(110, 30, 255, 0.35), transparent 50%),
+    radial-gradient(circle at 80% 20%, rgba(0, 242, 255, 0.25), transparent 50%),
+    linear-gradient(135deg, #0d0d1f 0%, #12122e 100%);
+  color: white;
+  padding: 20px;
+}
+
+/* -------- CARD -------- */
+.auth-card {
+  width: 100%;
+  max-width: 420px;
+  padding: 40px;
+  border-radius: 20px;
+  border: 1px solid rgba(110, 30, 255, 0.45);
+  background: rgba(31, 31, 45, 0.82);
+  backdrop-filter: blur(20px);
+  box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+  transition: 0.4s ease;
+}
+
+.auth-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 20px 40px rgba(0, 242, 255, 0.4);
+  border-color: #3b82f6;
+}
+
+/* -------- TEXT -------- */
+.auth-card h1 {
+  text-align: center;
+  color: #3b82f6;
+  font-size: 30px;
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+
+.auth-card p {
+  text-align: center;
+  color: #9ca3af;
+  margin-bottom: 24px;
+}
+
+/* -------- INPUTS -------- */
+.auth-input {
+  margin-bottom: 18px;
+}
+
+.auth-input label {
+  display: block;
+  margin-bottom: 6px;
+  color: #d1d5db;
+}
+
+.auth-input input {
+  width: 100%;
+  padding: 12px;
+  border-radius: 12px;
+  background: #1e2128;
+  border: 2px solid rgba(62, 20, 146, 0.8);
+  color: white;
+  transition: 0.3s;
+  font-size: 16px;
+}
+
+.auth-input input:focus,
+.auth-input input:hover {
+  border-color: #7424FA;
+  box-shadow: 0 0 10px rgba(116, 36, 250, 0.5);
+  outline: none;
+}
+
+/* -------- BUTTON -------- */
+.auth-btn {
+  width: 100%;
+  margin-top: 10px;
+}
+
+/* -------- SWITCH TEXT -------- */
+.switch-text {
+  text-align: center;
+  margin-top: 16px;
+  color: #9ca3af;
+}
+
+.switch-text a {
+  color: #7424FA;
+  font-weight: 600;
+}
+.auth-two {
+  display: flex;
+  gap: 15px;
+}
+
+.auth-two .auth-input {
+  flex: 1;
+}

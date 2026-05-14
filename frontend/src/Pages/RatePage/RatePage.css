@@ -1,0 +1,186 @@
+/* ---------------- PAGE BACKGROUND LIKE LANDING PAGE ---------------- */
+
+.rate-page {
+  min-height: 100vh;
+  padding-top: 50px;
+  display: flex;
+  justify-content: center;
+  background:
+    radial-gradient(circle at 20% 80%, rgba(110, 30, 255, 0.35), transparent 50%),
+    radial-gradient(circle at 80% 20%, rgba(0, 242, 255, 0.25), transparent 50%),
+    linear-gradient(135deg, #0d0d1f 0%, #12122e 100%);
+  position: relative;
+  color: white;
+}
+
+.rate-page::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(0deg,
+      transparent,
+      transparent 2px,
+      rgba(110, 30, 255, 0.03) 2px,
+      rgba(110, 30, 255, 0.03) 4px);
+  animation: scan 12s linear infinite;
+  pointer-events: none;
+}
+
+@keyframes scan {
+  0% {
+    transform: translateY(0);
+  }
+
+  100% {
+    transform: translateY(4px);
+  }
+}
+
+/* ---------------- RATE CARD ---------------- */
+
+.glass-card {
+  background: rgba(31, 31, 45, 0.82);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(110, 30, 255, 0.45);
+  border-radius: 1rem;
+  padding: 30px 0;
+  transition: 0.4s ease;
+}
+
+.glass-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 20px 40px rgba(0, 242, 255, 0.4);
+  border-color: var(--cyan);
+}
+
+.rate-box {
+  width: 550px;
+  padding: 30px;
+  margin: auto;
+}
+
+/* ---------------- CONTENT ---------------- */
+
+.center {
+  text-align: center;
+}
+
+.title {
+  color: #4db0ff;
+  font-size: 26px;
+  margin-bottom: 10px;
+}
+
+.subtitle {
+  color: #b5b5b5;
+  margin-bottom: 25px;
+}
+
+/* PROFILE */
+
+.profile {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  margin-bottom: 18px;
+}
+
+.avatar {
+  width: 55px;
+  height: 55px;
+  border-radius: 50%;
+}
+
+.profile .username {
+  font-size: 18px;
+  margin-bottom: 4px;
+}
+
+.profile .game,
+.profile .details {
+  font-size: 13px;
+  line-height: 1.2;
+  margin-bottom: 3px;
+}
+
+/* QUESTION */
+
+.question {
+  margin: 18px 0 10px;
+  font-size: 20px;
+}
+
+/* STARS */
+
+.stars {
+  margin: 10px 0 20px;
+  font-size: 32px;
+  display: flex;
+  justify-content: center;
+}
+
+.star {
+  cursor: pointer;
+  color: #555;
+  margin: 0 4px;
+  transition: color 0.2s ease;
+}
+
+.star.filled {
+  color: #ffd900;
+}
+
+/* FEEDBACK */
+
+.feedback-label {
+  margin-bottom: 6px;
+  color: #ccc;
+  font-size: 14px;
+}
+
+.feedback-input {
+  width: 100%;
+  min-height: 90px;
+  /* أصغر شوية */
+  max-height: 250px;
+  resize: both;
+  /* تتوسع وتتقفل */
+  background: #141628;
+  /* لون مختلف عن الكارد */
+  border: 1px solid #2d3248;
+  border-radius: 12px;
+  padding: 10px;
+  color: white;
+  margin-bottom: 20px;
+  transition: 0.3s;
+}
+
+.feedback-input:focus {
+  border-color: #7424FA;
+  box-shadow: 0 0 10px rgba(116, 36, 250, 0.4);
+}
+
+/* ---------------- PURPLE BUTTON ---------------- */
+.glow-btn {
+  width: 80%;
+  padding: 14px;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  font-size: 17px;
+  font-weight: 600;
+  color: rgb(0, 0, 0);
+  background: linear-gradient(135deg, #9747E1, #7424FA);
+  box-shadow: 0 0 20px rgba(116, 36, 250, 0.45);
+  transition: 0.35s ease;
+
+  /* أهم حاجة لتوسيط الزرار */
+  display: block;
+  margin: 0 auto;
+}
+
+.glow-btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 0 32px rgba(116, 36, 250, 0.75);
+  color: white;
+}
