@@ -1,0 +1,71 @@
+
+<div
+  class="overlay"
+  [class.visible]="isOpen"
+  (click)="onClose()"
+></div>
+
+
+<div class="drawer" [class.open]="isOpen">
+
+
+  <div class="drawer-header">
+    <h2> Shopping List</h2>
+    <button class="close-btn" (click)="onClose()">✕</button>
+  </div>
+
+
+  @if (shoppingListService.itemCount() === 0) {
+    <div class="empty-state">
+      <p> No ingredients yet</p>
+      <p>Click a recipe card and add ingredients</p>
+    </div>
+  }
+
+  @if (shoppingListService.itemCount() > 0) {
+
+
+    <div class="clear-section">
+      <span>{{ shoppingListService.itemCount() }} items</span>
+
+      <div class="controls">
+   
+        <button class="unit-toggle-btn" (click)="toggleUnit()">
+          {{ showInOunces() ? 'Show Grams' : 'Show Ounces' }}
+        </button>
+
+        <button class="clear-btn" (click)="clearAll()">Clear All</button>
+      </div>
+    </div>
+
+   
+    @for (recipeTitle of recipeGroups; track recipeTitle) {
+      <div class="recipe-group">
+
+        <h4 class="group-title">From: {{ recipeTitle }}</h4>
+
+        @for (item of groupedItems[recipeTitle]; track item.ingredientId) {
+          <div class="ingredient-row">
+
+            <div class="ingredient-info">
+              <span class="ingredient-name">{{ item.name }}</span>
+
+             
+              <span class="ingredient-amount">
+                {{ item.amount | gramsToOunces: (showInOunces() ? 'g' : item.unit) }}
+              </span>
+            </div>
+
+            <button class="remove-btn" (click)="removeItem(item.ingredientId)">
+              ✕
+            </button>
+
+          </div>
+        }
+
+      </div>
+    }
+
+  }
+
+</div>

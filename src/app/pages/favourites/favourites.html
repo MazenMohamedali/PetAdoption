@@ -1,0 +1,29 @@
+<div class="page-container">
+
+    <div class="page-header">
+      <h1> My Favourites</h1>
+      <p>All your saved recipes in one place</p>
+    </div>
+  
+    
+    @if (favouritesService.favouriteCount() === 0) {
+      <div class="empty-state">
+        <span class="empty-icon"></span>
+        <h3>No favourites yet</h3>
+        <p>Go back to the home page and click the heart icon on any recipe to save it here</p>
+      </div>
+    }
+  
+  
+    @if (favouritesService.favouriteCount() > 0) {
+      <div class="grid-container">
+        @for (recipe of favouritesService.favouriteRecipes(); track recipe.id) {
+          <app-recipe-card
+            [recipe]="recipe"
+            [showRemoveButton]="true"
+          />
+        }
+      </div>
+    }
+  
+  </div>

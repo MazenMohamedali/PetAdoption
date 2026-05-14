@@ -1,0 +1,67 @@
+<div class="modal-container">
+
+    @if (isLoading()) {
+      <div class="modal-loading">
+        <p>Loading recipe details...</p>
+      </div>
+    }
+  
+    @if (!isLoading() && recipeDetail()) {
+  
+      <img
+        [src]="recipeDetail().image"
+        [alt]="recipeDetail().title"
+        class="modal-image"
+        loading="lazy"
+      />
+  
+      <div class="modal-body">
+  
+        <h2 class="modal-title">{{ recipeDetail().title }}</h2>
+  
+        <div class="modal-meta">
+          <span> {{ recipeDetail().readyInMinutes }} min</span>
+          <span> {{ recipeDetail().servings }} servings</span>
+        </div>
+  
+
+        <div class="ingredients-header">
+          <h3>Ingredients</h3>
+  
+         
+          <button class="unit-toggle-btn" (click)="toggleUnit()">
+            {{ showInOunces() ? 'Show in Grams' : 'Show in Ounces' }}
+          </button>
+        </div>
+  
+        <ul class="ingredients-list">
+          @for (ing of recipeDetail().extendedIngredients; track ing.id) {
+            <li class="ingredient-item">
+  
+              <span class="ingredient-name">{{ ing.name }}</span>
+              <span class="ingredient-amount">
+                {{ ing.amount | gramsToOunces: (showInOunces() ? 'g' : ing.unit) }}
+              </span>
+  
+            </li>
+          }
+        </ul>
+  
+        <div class="modal-actions">
+          <button
+            class="add-btn"
+            (click)="addToShoppingList()"
+            [disabled]="alreadyAdded()"
+          >
+            {{ alreadyAdded() ? ' Added to List!' : ' Add All to Shopping List' }}
+          </button>
+  
+          <button class="close-btn" (click)="closeModal()">
+            Close
+          </button>
+        </div>
+  
+      </div>
+    }
+  
+  </div>

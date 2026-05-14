@@ -1,0 +1,27 @@
+<nav class="navbar">
+
+    
+    <a routerLink="/home" class="logo"> Recipe Cookbook</a>
+  
+  
+    <div class="nav-links">
+      <a routerLink="/home" routerLinkActive="active-link">Home</a>
+      <a routerLink="/about" routerLinkActive="active-link">About Us</a>
+      <a routerLink="/favourites" routerLinkActive="active-link">
+         Favourites
+      </a>
+    </div>
+  
+    
+    <button class="menu-btn" (click)="toggleMenu()">☰</button>
+  
+   
+    @if (isMenuOpen) {
+      <div class="mobile-menu">
+        <a routerLink="/home" routerLinkActive="active-link" (click)="toggleMenu()">Home</a>
+        <a routerLink="/about" routerLinkActive="active-link" (click)="toggleMenu()">About Us</a>
+        <a routerLink="/favourites" routerLinkActive="active-link" (click)="toggleMenu()"> Favourites</a>
+      </div>
+    }
+  
+  </nav>

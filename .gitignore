@@ -1,18 +1,47 @@
-# IDE
-.idea/
+# See https://docs.github.com/get-started/getting-started-with-git/ignoring-files for more about ignoring files.
+# Angular build output
+dist/
+tmp/
+out-tsc/
+bazel-out/
 
 # Node
 node_modules/
+npm-debug.log*
+yarn-error.log*
 
-# Java
-target/
+# Angular cache
+.angular/
+.sass-cache/
 
-# Vite
-.vite/
+# Environment
+.env
+.env.*
 
-# Tanstack temp
-.tanstack/
+# IDEs
+.idea/
+.project
+.classpath
+c9/
+*.launch
+.settings/
 
-# OS
+# VS Code
+.vscode/
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+
+.history/
+
+# Coverage
+coverage/
+
+# System
 .DS_Store
-#om
+Thumbs.db
+
+# Logs
+testem.log
+libpeerconnection.log

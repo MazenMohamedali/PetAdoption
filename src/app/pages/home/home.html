@@ -1,0 +1,44 @@
+<div class="home-container">
+
+ 
+    <div class="cart-bar">
+      <button class="cart-btn" (click)="toggleDrawer()">
+         Shopping List
+        @if (shoppingListService.itemCount() > 0) {
+          <span class="badge">{{ shoppingListService.itemCount() }}</span>
+        }
+      </button>
+    </div>
+  
+
+    <section class="hero">
+      <h2>Find Your Next Favorite Meal</h2>
+      <p>Search by ingredient, dish name, or cuisine</p>
+      <app-search-bar
+        (recipesFound)="onRecipesFound($event)"
+        (loadingChange)="onLoadingChange($event)"
+      />
+    </section>
+  
+    @if (isLoading()) {
+      <div class="loading">
+        <p>Searching recipes...</p>
+      </div>
+    }
+  
+    @if (!isLoading() && recipes().length > 0) {
+      <app-recipe-grid [recipes]="recipes()" />
+    }
+  
+    @if (!isLoading() && recipes().length === 0) {
+      <div class="empty-state">
+        <p> Type something above to discover recipes</p>
+      </div>
+    }
+  
+    <app-shopping-drawer
+      [isOpen]="isDrawerOpen()"
+      (closeDrawer)="toggleDrawer()"
+    />
+  
+  </div>

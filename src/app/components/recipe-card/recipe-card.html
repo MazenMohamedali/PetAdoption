@@ -1,0 +1,42 @@
+<div class="card" (click)="openModal()">
+
+    <img
+      [src]="recipe.image"
+      [alt]="recipe.title"
+      loading="lazy"
+      class="card-image"
+    />
+  
+    <div class="card-body">
+  
+      <h3 class="card-title">{{ recipe.title }}</h3>
+  
+      <div class="card-footer">
+  
+        <span class="time"> {{ recipe.readyInMinutes }} min</span>
+  
+        @if (showRemoveButton) {
+          
+          <button class="action-btn remove-btn" (click)="removeFavourite($event)">
+            <mat-icon>delete</mat-icon>
+            Remove
+          </button>
+        } @else {
+      
+          <button
+            class="favourite-btn"
+            [class.is-saved]="favouritesService.isFavourited(recipe.id)"
+            (click)="toggleFavourite($event)"
+          >
+            <mat-icon>
+              {{ favouritesService.isFavourited(recipe.id) ? 'favorite' : 'favorite_border' }}
+            </mat-icon>
+            {{ favouritesService.isFavourited(recipe.id) ? 'Saved' : 'Save' }}
+          </button>
+        }
+  
+      </div>
+  
+    </div>
+  
+  </div>
