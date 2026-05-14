@@ -10,10 +10,10 @@ jobs:
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Setup Node.js
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
           node-version: '20'
 
@@ -23,8 +23,11 @@ jobs:
       - name: Build Angular app
         run: npm run build -- --configuration production
 
+      - name: Show dist folder contents
+        run: ls -la dist/ && ls -la dist/*/
+
       - name: Deploy to Netlify
-        uses: nwtgck/actions-netlify@v2
+        uses: nwtgck/actions-netlify@v3
         with:
           publish-dir: './dist/virtual_recipe_cookbook/browser'
           production-branch: main
